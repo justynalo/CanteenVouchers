@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #generateButton {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px; /* Added margin */
+        }
+
+        #generateButton:hover {
+            background-color: #45a049;
+        }
+
+        #searchInput {
+            width: 300px;
+            padding: 8px;
+            margin-bottom: 12px;
+        }
+
+        #nameInput, #emailInput {
+            margin-bottom: 12px;
+        }
+
+        #voucherTableContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #voucherTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #voucherTable th, #voucherTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #printButton, #sendButton {
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #printButton:hover, #sendButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voucher Management System</h1>
+
+    <div id="searchContainer">
+        <label for="searchInput">Search Voucher:</label>
+        <input type="text" id="searchInput" placeholder="Enter Voucher Code or Name">
+        <button id="searchButton" onclick="searchVoucher()">Search</button>
+    </div>
+
+    <button id="generateButton" onclick="generateVoucher()">Generate New Voucher</button>
+
+    <div id="nameInput">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter Name">
+    </div>
+
+    <div id="emailInput">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter Email">
+    </div>
+
+    <div id="voucherTableContainer">
+        <table id="voucherTable">
+            <thead>
+                <tr>
+                    <th>Voucher Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="voucherList">
+                <!-- Voucher details will be displayed here -->
+            </tbody>
+        </table>
+
+        <button id="printButton" onclick="printVoucher()">Print Voucher</button>
+        <button id="sendButton" onclick="sendVoucher()">Send Voucher</button>
+    </div>
+
+    <script>
+        function generateVoucher() {
+            var voucherCode = generateRandomCode(15);
+            var name = document.getElementById("name").value || "Not Assigned";
+            var email = document.getElementById("email").value || "Not Assigned";
+
+            // Add voucher details to the table
+            var table = document.getElementById("voucherList");
+            var row = table.insertRow(0);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = voucherCode;
+            cell2.innerHTML = name;
+            cell3.innerHTML = email;
+
+            // Show the voucher table container
+            document.getElementById("voucherTableContainer").style.display = "block";
+        }
+
+        function generateRandomCode(length) {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var code = "";
+            for (var i = 0; i < length; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+
+        function searchVoucher() {
+            var searchValue = document.getElementById("searchInput").value.toUpperCase();
+            var table = document.getElementById("voucherTable");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+
+                for (var j = 0; j < cells.length; j++) {
+                    var cellValue = cells[j].textContent || cells[j].innerText;
+
+                    if (cellValue.toUpperCase().indexOf(searchValue) > -1) {
+                        rows[i].style.display = "";
+                        break;
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function printVoucher() {
+            // Placeholder function for printing voucher
+            alert("Printing voucher...");
+        }
+
+        function sendVoucher() {
+            // Placeholder function for sending voucher to email
+            alert("Sending voucher to email...");
+        }
+    </script>
+</body>
+</html>

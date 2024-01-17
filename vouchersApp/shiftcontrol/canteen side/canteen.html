@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Voucher Redemption Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Meal Voucher Redemption Status</h1>
+    
+    <label for="voucherInput">Enter 15-symbol Voucher Code:</label>
+    <input type="text" id="voucherInput" maxlength="15">
+    <button onclick="checkRedemptionStatus()">Check Status</button>
+
+    <div id="result"></div>
+
+    <script>
+        function checkRedemptionStatus() {
+            var voucherCode = document.getElementById('voucherInput').value;
+
+            // You would typically make an AJAX request to the server to check the redemption status
+            // For simplicity, let's assume the status is determined locally
+            var isRedeemed = Math.random() < 0.5; // Just a random condition for demonstration
+
+            displayResult(isRedeemed);
+        }
+
+        function displayResult(isRedeemed) {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = isRedeemed ? 'Voucher has been redeemed.' : 'Voucher has not been redeemed.';
+        }
+    </script>
+</body>
+</html>
